@@ -1,6 +1,5 @@
 // @ts-nocheck
-// calculate ride
-export function calc (movArray) {
+export function calculateRide (movArray) {
 	let result = 0;
 	for (const mov of movArray) {
 		if (mov.dist != null && mov.dist != undefined && typeof mov.dist === "number" && mov.dist > 0) {
