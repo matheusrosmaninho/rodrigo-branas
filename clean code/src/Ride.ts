@@ -3,8 +3,6 @@ import FareCalculator from "./FareCalculator";
 
 export default class Ride {
     segments: Segment[]
-    SUNDAY_FARE = 2.9
-    NORMAL_FARE = 2.1
     MIN_FARE = 10
 
     constructor(readonly fareCalculator: FareCalculator) {
