@@ -1,5 +1,4 @@
-// @ts-nocheck
-export function validateCpf(cpf) {
+export function validateCpf(cpf: string): boolean {
     if (cpf === null || cpf === undefined) return false
 
     cpf = cpf.replace(/\D/g, '')
