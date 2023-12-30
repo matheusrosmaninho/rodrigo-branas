@@ -37,13 +37,11 @@ test('Deve calcular valor da corrida minima', () => {
 })
 
 test('Deve retornar -1 com distancia inválida', () => {
-    ride.addSegment(-3, new Date('2021-03-07T10:00:00'))
-    expect(() => ride.finish()).toThrow("Invalid distance")
+    expect(() => ride.addSegment(-3, new Date('2021-03-07T10:00:00'))).toThrow("Invalid distance")
 })
 
  test('Deve retornar -2 se data inválida', () => {
-     ride.addSegment(10, new Date('abcd'))
-     expect(() => ride.finish() ).toThrow("Invalid date")
+     expect(() => ride.addSegment(10, new Date('abcd')) ).toThrow("Invalid date")
  })
 
  test('Deve calcular valor da corrida em multiplos horários', () => {
