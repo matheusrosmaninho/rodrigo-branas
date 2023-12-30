@@ -1,8 +1,8 @@
-import Ride from "../src/Ride"
-import NormalFareCalculator from "../src/NormalFareCalculator";
-import SundayFareCalculator from "../src/SundayFareCalculator";
-import OvernightSundayFareCalculator from "../src/OvernightSundayFareCalculator";
-import OvernightFareCalculator from "../src/OvernightFareCalculator";
+import Ride from "../../src/example01/Ride"
+import NormalFareCalculator from "../../src/example01/NormalFareCalculator";
+import SundayFareCalculator from "../../src/example01/SundayFareCalculator";
+import OvernightSundayFareCalculator from "../../src/example01/OvernightSundayFareCalculator";
+import OvernightFareCalculator from "../../src/example01/OvernightFareCalculator";
 
 let ride: Ride
 
@@ -55,7 +55,7 @@ test('Deve retornar -1 com distancia inválida', () => {
  test('Deve calcular valor da corrida em multiplos horários', () => {
      ride.addSegment(10, new Date('2021-03-01T21:00:00'))
      ride.addSegment(10, new Date('2021-03-01T22:00:00'))
-     
+
      const fare = ride.finish()
      expect(fare).toBe(60)
  })
