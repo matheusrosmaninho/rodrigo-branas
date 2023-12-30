@@ -1,46 +1,42 @@
-export function validateCpf(cpf: string): boolean {
-    if (cpf === null || cpf === undefined) return false
+const FIRST_DIGIT_FACTOR = 10
+const SECOND_DIGIT_FACTOR = 11
 
-    cpf = cpf.replace(/\D/g, '')
+export function validateCpf(rawCpf: string | null): boolean {
+    if (rawCpf === null || rawCpf === undefined) return false
+    const cpf = cleanCpf(rawCpf)
+    if (!isValidLength(cpf)) return false
+    if (isIdenticalDigits(cpf)) return false
 
-    if (cpf.length !== 11) return false
+    const calculateCheckDigit1 = calculateCheckDigit(cpf, FIRST_DIGIT_FACTOR)
+    const calculateCheckDigit2 = calculateCheckDigit(cpf, SECOND_DIGIT_FACTOR)
 
-    if (!cpf.split("").every(c => c === cpf[0])) {
-        try {
-            let d1, d2;
-            let dg1, dg2, rest;
-            let digito;
-            let nDigResult;
-            d1 = d2 = 0;
-            dg1 = dg2 = rest = 0;
+    let checkDigit = extractCheckDigits(cpf)
+    const calculatedCheckDigit = `${calculateCheckDigit1}${calculateCheckDigit2}`
+    return checkDigit === calculatedCheckDigit;
+}
 
-            for (let nCount = 1; nCount < cpf.length - 1; nCount++) {
-                digito = parseInt(cpf.substring(nCount - 1, nCount));
-                d1 = d1 + (11 - nCount) * digito;
+function cleanCpf(cpf: string): string {
+    return cpf.replace(/\D/g, '')
+}
 
-                d2 = d2 + (12 - nCount) * digito;
-                // }
-            }
-            ;
+function isValidLength(cpf: string): boolean {
+    return cpf.length === 11
+}
 
-            rest = (d1 % 11);
+function isIdenticalDigits(cpf: string): boolean {
+    const [firstDigit] = cpf
+    return [...cpf].every(digit => digit === firstDigit)
+}
 
-            dg1 = (rest < 2) ? dg1 = 0 : 11 - rest;
-            d2 += 2 * dg1;
-            rest = (d2 % 11);
-            if (rest < 2)
-                dg2 = 0;
-            else
-                dg2 = 11 - rest;
+function calculateCheckDigit(cpf: string, factor: number) {
+    const total = [...cpf].reduce((total, digit) => {
+        if (factor > 1) total += parseInt(digit) * factor--
+        return total
+    }, 0);
+    const rest = total % 11
+    return (rest < 2) ? 0 : 11 - rest
+}
 
-            let nDigVerific = cpf.substring(cpf.length - 2, cpf.length);
-            nDigResult = "" + dg1 + "" + dg2;
-            return nDigVerific == nDigResult;
-        } catch (e) {
-            console.error("Erro !" + e);
-
-            return false;
-        }
-    } else return false
-
+function extractCheckDigits(cpf: string): string {
+    return cpf.slice(-2)
 }
