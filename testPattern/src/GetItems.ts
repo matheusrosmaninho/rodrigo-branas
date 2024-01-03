@@ -1,20 +1,16 @@
-import Connection from "./Connection";
+import ItemsRepository from "./ItemsRepository";
 
 export default class GetItems {
-    connection: Connection
-
-    constructor() {
-        this.connection = new Connection()
-    }
+    constructor(readonly repository: ItemsRepository){}
 
     async execute(): Promise<Output[]> {
-        const items = await this.connection.query('select * from public.item order by id asc')
+        const items = await this.repository.getItems()
         const output: Output[] = []
         for (const item of items) {
             output.push({ description: item.description, price: parseFloat(item.price)} )
         }
 
-        return await output
+        return output
     }
 }
 
