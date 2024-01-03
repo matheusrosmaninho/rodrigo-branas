@@ -25,7 +25,7 @@ test('Deve obter os itens com um fake repository', async () => {
 
 test('Deve obter os itens com um stub', async () => {
     const itemsRepository = new ItemsRepositoryDatabase()
-    sinon.stub(itemsRepository, 'getItems').returns(Promise.resolve([{description: 'Bola', price: 100}]))
+    sinon.stub(itemsRepository, 'getItems').returns(Promise.resolve([{ description: 'Bola', price: 100 }]))
     const getItems = new GetItems(itemsRepository)
     const items = await getItems.execute()
 
@@ -44,5 +44,16 @@ test('Deve obter os itens com um spy', async () => {
     expect(items).toHaveLength(3)
     sinon.assert.calledOnce(spy)
 
+    sinon.restore()
+})
+
+test('Deve obter os itens com um mock', async () => {
+    const itemsRepository = new ItemsRepositoryDatabase()
+    const getItems = new GetItems(itemsRepository)
+    const mock = sinon.mock(getItems)
+    mock.expects('execute').returns(Promise.resolve([{ description: 'Bola', price: 100 }]))
+
+    await getItems.execute()
+    mock.verify()
     sinon.restore()
 })
