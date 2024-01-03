@@ -34,3 +34,15 @@ test('Deve obter os itens com um stub', async () => {
     expect(items[0].price).toBe(100)
     sinon.restore()
 })
+
+test('Deve obter os itens com um spy', async () => {
+    const itemsRepository = new ItemsRepositoryDatabase()
+    const spy = sinon.spy(itemsRepository, 'getItems')
+    const getItems = new GetItems(itemsRepository)
+    const items = await getItems.execute()
+
+    expect(items).toHaveLength(3)
+    sinon.assert.calledOnce(spy)
+
+    sinon.restore()
+})
