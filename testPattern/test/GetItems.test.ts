@@ -1,6 +1,7 @@
 import GetItems from "../src/GetItems"
 import ItemsRepositoryDatabase from "../src/ItemsRepositoryDatabase"
 import ItemsRepositoryMemory from "../src/ItemsRepositoryMemory"
+import sinon from 'sinon'
 
 test('Deve obter os itens', async () => {
     const itemsRepository = new ItemsRepositoryDatabase()
@@ -20,4 +21,16 @@ test('Deve obter os itens com um fake repository', async () => {
     expect(items).toHaveLength(3)
     expect(items[0].description).toBe('Guitarra')
     expect(items[0].price).toBe(1000)
+})
+
+test('Deve obter os itens com um stub', async () => {
+    const itemsRepository = new ItemsRepositoryDatabase()
+    sinon.stub(itemsRepository, 'getItems').returns(Promise.resolve([{description: 'Bola', price: 100}]))
+    const getItems = new GetItems(itemsRepository)
+    const items = await getItems.execute()
+
+    expect(items).toHaveLength(1)
+    expect(items[0].description).toBe('Bola')
+    expect(items[0].price).toBe(100)
+    sinon.restore()
 })
