@@ -1,17 +1,18 @@
+import Dimension from "./Dimension"
+
 export default class Item {
-    constructor(readonly id: number, readonly description: string, readonly price: number, readonly width?: number, readonly heighy?: number, readonly length?: number, readonly weight?: number) {
+    constructor(readonly id: number, readonly description: string, readonly price: number, readonly dimension?: Dimension, readonly weight?: number) {
     }
 
     getVolume() {
-        if (this.width && this.heighy && this.length && this.weight)
-            return (this.width/100) * (this.heighy/100) * (this.length/100)
+        if (this.dimension)
+            return this.dimension.getVolume()
         return 0
     }
 
-    getDensity()
-    {
-        if (this.width && this.heighy && this.length && this.weight)
-            return this.weight/this.getVolume()
+    getDensity() {
+        if (this.dimension && this.weight)
+            return this.weight / this.dimension.getVolume()
         return 0
     }
 }
