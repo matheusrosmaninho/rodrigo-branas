@@ -1,5 +1,6 @@
 import Coupon from "./Coupon";
 import Cpf from "./Cpf";
+import Freight from "./Freight";
 import Item from "./Item";
 import OrderItem from "./OrderItem";
 
@@ -7,7 +8,7 @@ export default class Order {
     cpf: Cpf
     orderItems: OrderItem[]
     coupon?: Coupon
-    freight = 0
+    freight = new Freight()
 
     constructor (cpf: string, readonly date: Date = new Date()){
         this.cpf = new Cpf(cpf)
@@ -16,12 +17,7 @@ export default class Order {
     }
 
     addItem(item: Item, quantity: number) {
-        if (item.width && item.heighy && item.length && item.weight){
-            const volume = (item.width/100) * (item.heighy/100) * (item.length/100)
-            const density = item.weight/volume
-            const freight = volume * 1000 * (density/100)
-            this.freight += freight * quantity
-        }
+        this.freight.addItem(item, quantity)
         this.orderItems.push(new OrderItem(item.id, item.price, quantity))
     }
 
@@ -36,11 +32,12 @@ export default class Order {
             return total
         }, 0)
 
-        if (this.coupon) total -= this.coupon.calculateDiscount(total)
+        if (this.coupon && !this.coupon.isExpired(this.date)) total -= this.coupon.calculateDiscount(total)
+        total += this.freight.getTotal()
         return total
     }
 
     getFreight() {
-        return this.freight
+        return this.freight.getTotal()
     }
 }

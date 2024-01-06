@@ -48,6 +48,8 @@ test('Deve criar um pedido com 3 itens e calcular o frete', () => {
     order.addItem(new Item(2, 'Amplificador', 5000, 50, 50, 50, 20), 1)
     order.addItem(new Item(3, 'Cabo', 30, 10, 10, 10, 1), 3)
     const freight = order.getFreight()
+    const total = order.getTotal()
 
     expect(freight).toBe(260)
+    expect(total).toBe(6350)
 })
