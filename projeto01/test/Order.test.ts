@@ -28,3 +28,15 @@ test('Deve criar um pedido com cupom de desconto', () => {
     const total = order.getTotal()
     expect(total).toBe(4872)
 })
+
+test('Deve criar um pedido com cupom de desconto expirado', () => {
+    const order = new Order('284.072.770-61', new Date('2021-03-01T10:00:00'))
+
+    order.addItem(new Item(1, 'Guitarra', 1000), 1)
+    order.addItem(new Item(2, 'Amplificador', 5000), 1)
+    order.addItem(new Item(3, 'Cabo', 30), 3)
+    order.addCoupon(new Coupon('VALE20', 20, new Date('2021-03-01T01:00:00')))
+
+    const total = order.getTotal()
+    expect(total).toBe(6090)
+})
