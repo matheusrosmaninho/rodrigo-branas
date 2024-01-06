@@ -40,3 +40,14 @@ test('Deve criar um pedido com cupom de desconto expirado', () => {
     const total = order.getTotal()
     expect(total).toBe(6090)
 })
+
+test('Deve criar um pedido com 3 itens e calcular o frete', () => {
+    const order = new Order('284.072.770-61')
+
+    order.addItem(new Item(1, 'Guitarra', 1000, 100, 30, 10, 3), 1)
+    order.addItem(new Item(2, 'Amplificador', 5000, 50, 50, 50, 20), 1)
+    order.addItem(new Item(3, 'Cabo', 30, 10, 10, 10, 1), 3)
+    const freight = order.getFreight()
+
+    expect(freight).toBe(260)
+})
