@@ -10,3 +10,10 @@ test('Deve calcular o frete', () => {
     const total = freight.getTotal()
     expect(total).toBe(260)
 })
+
+test('Deve calcular o frete com preço minimo', () => {
+    const freight = new Freight()
+    freight.addItem(new Item(3, 'Cabo', 30, new Dimension(10, 10, 10), 0.9), 1)
+    const total = freight.getTotal()
+    expect(total).toBe(10)
+})
