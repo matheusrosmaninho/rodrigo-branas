@@ -7,5 +7,5 @@ test('Deve chamar /items', async () => {
     })
 
     const items = response.data
-    expect(items).toHaveLength(3)
+    expect(items).toHaveLength(4)
 })
