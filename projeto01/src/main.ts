@@ -1,7 +1,7 @@
-import ExpressAdapter from './ExpressAdapter'
-import GetItens from './GetItens'
-import ItemRepositoryDatabase from './ItemRepositoryDatabase'
-import PgPromiseConnectionAdapter from './PgPromiseConnectionAdapter'
+import ExpressAdapter from './infra/http/ExpressAdapter'
+import GetItens from './application/GetItens'
+import ItemRepositoryDatabase from './infra/repository/database/ItemRepositoryDatabase'
+import PgPromiseConnectionAdapter from './infra/database/PgPromiseConnectionAdapter'
 
 const http = new ExpressAdapter()
 

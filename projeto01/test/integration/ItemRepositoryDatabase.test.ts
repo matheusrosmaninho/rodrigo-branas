@@ -1,5 +1,5 @@
-import ItemRepositoryDatabase from "../src/ItemRepositoryDatabase"
-import PgPromiseConnectionAdapter from "../src/PgPromiseConnectionAdapter"
+import ItemRepositoryDatabase from "../../src/infra/repository/database/ItemRepositoryDatabase"
+import PgPromiseConnectionAdapter from "../../src/infra/database/PgPromiseConnectionAdapter"
 
 test('Deve retornar itens do banco de dados', async () => {
     const connection = new PgPromiseConnectionAdapter()

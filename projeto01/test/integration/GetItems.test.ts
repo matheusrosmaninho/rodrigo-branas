@@ -1,7 +1,7 @@
-import Dimension from "../src/Dimension"
-import GetItens from "../src/GetItens"
-import Item from "../src/Item"
-import ItemRepositoryMemory from "../src/ItemRepositoryMemory"
+import Dimension from "../../src/domain/entity/Dimension"
+import GetItens from "../../src/application/GetItens"
+import Item from "../../src/domain/entity/Item"
+import ItemRepositoryMemory from "../../src/infra/repository/memory/ItemRepositoryMemory"
 
 test('Deve buscar os itens', async () => {
     const itemRepository = new ItemRepositoryMemory()

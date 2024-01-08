@@ -1,4 +1,4 @@
-import ItemRepository from "./ItemRepository";
+import ItemRepository from "../domain/repository/ItemRepository";
 
 export default class GetItens {
     constructor(readonly itemRepository: ItemRepository){}

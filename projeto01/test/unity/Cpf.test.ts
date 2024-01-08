@@ -1,4 +1,4 @@
-import Cpf from "../src/Cpf"
+import Cpf from "../../src/domain/entity/Cpf"
 
 test('CPF invalido com menos de 11 digitos', () => {
     expect(() => new Cpf('1111')).toThrow('CPF Inválido')
